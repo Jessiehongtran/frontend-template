@@ -6,8 +6,11 @@ export default class Color extends React.Component {
         super(props);
         this.state = {
             colors: [],
+            initialX: 56,
+            initialY: 378,
             pointerX: 56,
-            pointerY: 378
+            pointerY: 378,
+            currentColor: this.rgbToHex(200, 0, 20)
         }
     }
 
@@ -23,17 +26,40 @@ export default class Color extends React.Component {
     }
 
     handleDrop(e){
-        
+        let row = Math.round((this.state.pointerY - this.state.initialY)/20)
+        let col = Math.round((this.state.pointerX - this.state.initialX)/20)
+
+        let r = row*20 + col*10 + 200
+        let g   = row*20 + col*10
+        let b = 20
+
+        this.setState({
+            currentColor: this.rgbToHex(r, g, b)
+        })
+
     }
 
     handleDragStart(e){
         let el = document.createElement('div');
-        e.dataTransfer.setDragImage(el, 0, 0);
+        el.style.visibility = 'hidden'
+        e.dataTransfer.setDragImage(document.getElementById('pointer'), -5, 5);
     }
+
+    componentToHex(c) {
+        console.log('c', c)
+        var hex = c.toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
+      }
+      
+    rgbToHex(r, g, b) {
+        return "#" + this.componentToHex(r) + this.componentToHex(g) + this.componentToHex(b);
+      }
 
     render(){
 
         const colors = []
+
+        
 
         for (let r= 0; r < 10; r++){
             let row = []
@@ -52,14 +78,15 @@ export default class Color extends React.Component {
                 className="color container" 
                 onDragOver={(e) => this.handleDragOver(e)}
                 onDrop={e => this.handleDrop(e)}
-                style={{ marginLeft: '50px'}}>
+                style={{ marginLeft: '50px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
                 <div 
-                    className="pointer" 
+                    id="pointer" 
                     style={{ width: '10px', height: '10px', borderRadius: '50%', position: 'absolute', backgroundColor: 'white', border: '2px solid black', left: `${this.state.pointerX}px`, top: `${this.state.pointerY}px`}}
                     draggable
                     onDrag={(e) => this.handleDrag(e)}
                     onDragStart={e => this.handleDragStart(e)}
                 ></div>
+                <div style={{}}>
                 {colors.map((color,i) => 
                     (<div key={i} style={{ display: 'flex'}}>
                     {color.map(subColor => 
@@ -68,6 +95,10 @@ export default class Color extends React.Component {
                     )}
                     </div>)
                 )}
+                </div>
+                <div>
+                    Color: <span>{this.state.currentColor}</span>
+                </div>
             </div>
         )
     }
