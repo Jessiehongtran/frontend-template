@@ -1,0 +1,22 @@
+.box.container {
+    border-radius: 10px; 
+    background: #ffffff; 
+    padding: 40px; 
+    width: 280px; 
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; 
+    margin: 20px;
+}
+
+.line {
+    border: 2px solid #199696; 
+    border-radius:4px; 
+    width: 60px; 
+    margin-bottom: 30px
+}
+
+.inputBox {
+    border: none;
+    outline: none;
+    padding-bottom: 5px;
+    width: 80%
+}
