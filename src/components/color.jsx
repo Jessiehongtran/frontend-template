@@ -70,8 +70,35 @@ export default class Color extends React.Component {
                     b: 20 
                 })
             }
+            for (let c = 11; c < 20; c++){
+                row.push({
+                    r: r*20 - c*10 + 200,
+                    g: r*20 + c*5,
+                    b: 200
+                })
+            }
             colors.push(row)
         }
+        for (let r= 10; r < 20; r++){
+            let row = []
+            for (let c = 0; c < 10; c++){
+                row.push({
+                    r: r*5 + c*10 + 20,
+                    g: r*30 + c*20,
+                    b: 200
+                })
+            }
+            for (let c = 11; c < 20; c++){
+                row.push({
+                    r: r*30 - c*20 + 200,
+                    g: r*30 + c*10,
+                    b: 200
+                })
+            }
+            colors.push(row)
+        }
+
+
 
         return (
             <div 
