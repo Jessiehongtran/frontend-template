@@ -78,6 +78,7 @@ export default class Color extends React.Component {
                 })
             }
             colors.push(row)
+            
         }
         for (let r= 10; r < 20; r++){
             let row = []
